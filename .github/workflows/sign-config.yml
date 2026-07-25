@@ -1,0 +1,33 @@
+name: Sign Remote Data Config
+
+on:
+  push:
+    paths:
+      - 'Data.json'
+
+permissions:
+  contents: write
+
+jobs:
+  sign:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Create Private Key File
+        run: echo "${{ secrets.REMOTE_DATA_PRIVATE_KEY }}" > private_key.pem
+
+      - name: Generate Signature
+        run: openssl dgst -sha256 -sign private_key.pem -out Data.json.sig Data.json
+
+      - name: Cleanup Private Key
+        if: always()
+        run: rm -f private_key.pem
+
+      - name: Commit and Push Signature
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add Data.json.sig
+          git commit -m "chore: update Data.json signature [skip ci]" || exit 0
+          git push
