@@ -12,7 +12,7 @@ jobs:
   sign:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Create Private Key File
         run: echo "${{ secrets.REMOTE_DATA_PRIVATE_KEY }}" > private_key.pem
