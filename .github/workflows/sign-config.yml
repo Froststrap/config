@@ -11,14 +11,32 @@ permissions:
 jobs:
   sign:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v7
 
       - name: Create Private Key File
-        run: echo "${{ secrets.REMOTE_DATA_PRIVATE_KEY }}" > private_key.pem
+        run: |
+          printf '%s\n' '${{ secrets.REMOTE_DATA_PRIVATE_KEY }}' > private_key.pem
 
       - name: Generate Signature
-        run: openssl dgst -sha256 -sign private_key.pem -out Data.json.sig Data.json
+        run: |
+          openssl pkeyutl \
+            -sign \
+            -rawin \
+            -inkey private_key.pem \
+            -in Data.json \
+            -out Data.json.sig
+
+      - name: Verify Generated Signature
+        run: |
+          openssl pkeyutl \
+            -verify \
+            -rawin \
+            -pubin \
+            -inkey froststrap-config-public.pem \
+            -sigfile Data.json.sig \
+            -in Data.json
 
       - name: Cleanup Private Key
         if: always()
