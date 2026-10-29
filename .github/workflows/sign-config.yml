@@ -15,11 +15,16 @@ jobs:
     steps:
       - uses: actions/checkout@v7
 
-      - name: Create Private Key File
+      - name: Create Private Key Files
+        env:
+          ED25519_PRIVATE_KEY: ${{ secrets.REMOTE_DATA_PRIVATE_KEY }}
+          P256_PRIVATE_KEY: ${{ secrets.REMOTE_DATA_P256_PRIVATE_KEY }}
         run: |
-          printf '%s\n' '${{ secrets.REMOTE_DATA_PRIVATE_KEY }}' > private_key.pem
+          umask 077
+          printf '%s\n' "$ED25519_PRIVATE_KEY" > private_key.pem
+          printf '%s\n' "$P256_PRIVATE_KEY" > p256_private_key.pem
 
-      - name: Generate Signature
+      - name: Generate Signatures
         run: |
           openssl pkeyutl \
             -sign \
@@ -28,7 +33,13 @@ jobs:
             -in Data.json \
             -out Data.json.sig
 
-      - name: Verify Generated Signature
+          openssl dgst \
+            -sha256 \
+            -sign p256_private_key.pem \
+            -out Data.json.p256.sig \
+            Data.json
+
+      - name: Verify Generated Signatures
         run: |
           openssl pkeyutl \
             -verify \
@@ -38,14 +49,20 @@ jobs:
             -sigfile Data.json.sig \
             -in Data.json
 
-      - name: Cleanup Private Key
-        if: always()
-        run: rm -f private_key.pem
+          openssl dgst \
+            -sha256 \
+            -verify keys/froststrap-config-p256-public.pem \
+            -signature Data.json.p256.sig \
+            Data.json
 
-      - name: Commit and Push Signature
+      - name: Cleanup Private Key Files
+        if: always()
+        run: rm -f private_key.pem p256_private_key.pem
+
+      - name: Commit and Push Signatures
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add Data.json.sig
-          git commit -m "chore: update Data.json signature [skip ci]" || exit 0
+          git add Data.json.sig Data.json.p256.sig
+          git commit -m "chore: update Data.json signatures [skip ci]" || exit 0
           git push
