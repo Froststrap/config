@@ -1,6 +1,6 @@
 {
-    "alertEnabled": true,
-    "alertContent": "ジョン・フロストストラップがここにいた",
+    "alertEnabled": false,
+    "alertContent": "",
     "alertSeverity": 0,
     "bannedVersionHashes": [
         "version-36a2600cebf1487d",
