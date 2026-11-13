@@ -1,0 +1,187 @@
+{
+  "version": 1,
+  "news": [
+    {
+      "id": "test-pinned-linux",
+      "enabled": true,
+      "pinned": true,
+      "timestamp": 1794614400,
+      "expires": null,
+      "title": "Linux Beta Out",
+      "description": "Froststrap now ships as AppImage and AUR package. Wayland supported. Report bugs on GitHub.",
+      "image": "https://raw.githubusercontent.com/Froststrap/config/main/news/linux-beta.png",
+      "buttons": [
+        { "name": "Read More", "link": "https://github.com/Froststrap/Froststrap/releases", "primary": true },
+        { "name": "Report Bug", "link": "https://github.com/Froststrap/Froststrap/issues", "primary": false }
+      ],
+      "minVersion": null,
+      "maxVersion": null,
+      "platforms": ["linux"]
+    },
+    {
+      "id": "test-old-version-only",
+      "enabled": true,
+      "pinned": false,
+      "timestamp": 1794441600,
+      "expires": 1797206400,
+      "title": "Update Available",
+      "description": "Older builds missing encrypted import/export. Update now.",
+      "image": null,
+      "buttons": [
+        { "name": "Download", "link": "https://github.com/Froststrap/Froststrap/releases/latest", "primary": true }
+      ],
+      "minVersion": null,
+      "maxVersion": "1.4.0",
+      "platforms": []
+    },
+    {
+      "id": "test-no-buttons",
+      "enabled": true,
+      "pinned": false,
+      "timestamp": 1794009600,
+      "expires": null,
+      "title": "Community Spotlight",
+      "description": "Thanks to everyone who submitted custom themes this month. Entry has no buttons, card must render clean without button row.",
+      "image": "https://raw.githubusercontent.com/Froststrap/config/main/news/does-not-exist.png",
+      "buttons": [],
+      "minVersion": null,
+      "maxVersion": null,
+      "platforms": []
+    },
+    {
+      "id": "test-multiple-primary",
+      "enabled": true,
+      "pinned": false,
+      "timestamp": 1793318400,
+      "expires": null,
+      "title": "Multiple Primary Buttons",
+      "description": "Two buttons marked primary. First must render accent, second secondary.",
+      "image": null,
+      "buttons": [
+        { "name": "First Primary", "link": "https://example.com/one", "primary": true },
+        { "name": "Second Primary", "link": "https://example.com/two", "primary": true },
+        { "name": "Plain", "link": "https://example.com/three" }
+      ],
+      "minVersion": null,
+      "maxVersion": null,
+      "platforms": []
+    },
+    {
+      "id": "test-bad-links",
+      "enabled": true,
+      "pinned": false,
+      "timestamp": 1792108800,
+      "expires": null,
+      "title": "Link Validation Test",
+      "description": "Only the https button must render. http, file, custom scheme, empty link, empty name all skipped.",
+      "image": null,
+      "buttons": [
+        { "name": "Good", "link": "https://example.com/good", "primary": true },
+        { "name": "Insecure", "link": "http://example.com/bad", "primary": false },
+        { "name": "File", "link": "file:///etc/passwd", "primary": false },
+        { "name": "Custom", "link": "ms-settings:network", "primary": false },
+        { "name": "Empty Link", "link": "", "primary": false },
+        { "name": "", "link": "https://example.com/noname", "primary": false }
+      ],
+      "minVersion": null,
+      "maxVersion": null,
+      "platforms": []
+    },
+    {
+      "id": "test-windows-only",
+      "enabled": true,
+      "pinned": false,
+      "timestamp": 1791504000,
+      "expires": null,
+      "title": "Windows Only News",
+      "description": "Visible on Windows only. Hidden on Linux and macOS.",
+      "image": null,
+      "buttons": [
+        { "name": "Learn More", "link": "https://example.com/windows", "primary": false }
+      ],
+      "minVersion": null,
+      "maxVersion": null,
+      "platforms": ["Windows"]
+    },
+    {
+      "id": "test-future-version",
+      "enabled": true,
+      "pinned": false,
+      "timestamp": 1791072000,
+      "expires": null,
+      "title": "Needs Version 99.0.0",
+      "description": "minVersion above current app. Must be hidden.",
+      "image": null,
+      "buttons": [],
+      "minVersion": "99.0.0",
+      "maxVersion": null,
+      "platforms": []
+    },
+    {
+      "id": "test-bad-version-string",
+      "enabled": true,
+      "pinned": false,
+      "timestamp": 1790899200,
+      "expires": null,
+      "title": "Unparseable Version Filter",
+      "description": "minVersion not parseable. Filter ignored, entry must show.",
+      "image": null,
+      "buttons": [],
+      "minVersion": "banana",
+      "maxVersion": null,
+      "platforms": []
+    },
+    {
+      "id": "test-disabled",
+      "enabled": false,
+      "pinned": false,
+      "timestamp": 1794614400,
+      "expires": null,
+      "title": "Disabled Entry",
+      "description": "enabled is false. Must never show.",
+      "image": null,
+      "buttons": [],
+      "minVersion": null,
+      "maxVersion": null,
+      "platforms": []
+    },
+    {
+      "id": "test-expired",
+      "enabled": true,
+      "pinned": true,
+      "timestamp": 1792800000,
+      "expires": 1793491200,
+      "title": "Expired Entry",
+      "description": "Expired Nov 1 2026. Must be hidden even though pinned.",
+      "image": null,
+      "buttons": [],
+      "minVersion": null,
+      "maxVersion": null,
+      "platforms": []
+    },
+    {
+      "id": "test-minimal",
+      "title": "Minimal Entry",
+      "timestamp": 1790812800
+    },
+    {
+      "id": "test-missing-title",
+      "enabled": true,
+      "timestamp": 1790812800,
+      "description": "No title field. Must be skipped, rest still render."
+    },
+    {
+      "title": "Missing Id",
+      "timestamp": 1790812800,
+      "description": "No id field. Must be skipped."
+    },
+    {
+      "id": "test-unknown-fields",
+      "title": "Unknown Fields",
+      "timestamp": 1790726400,
+      "description": "Has fields client does not know. Must parse fine and ignore them.",
+      "futureField": { "nested": true },
+      "tag": "Event"
+    }
+  ]
+}
