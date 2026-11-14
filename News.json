@@ -9,7 +9,7 @@
       "expires": null,
       "title": "Linux Beta Out",
       "description": "Froststrap now ships as AppImage and AUR package. Wayland supported. Report bugs on GitHub.",
-      "image": "https://raw.githubusercontent.com/Froststrap/config/main/news/linux-beta.png",
+      "image": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%2Fid%2FOIP.HCQHcxcQOw-QSdes66I-RQHaEK%3Fr%3D0%26pid%3DApi&f=1&ipt=57668f9435b272093dac3c737bff80e8d6ffab060941110f2be53138fc738ab8&ipo=images",
       "buttons": [
         { "name": "Read More", "link": "https://github.com/Froststrap/Froststrap/releases", "primary": true },
         { "name": "Report Bug", "link": "https://github.com/Froststrap/Froststrap/issues", "primary": false }
